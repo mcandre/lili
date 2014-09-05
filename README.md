@@ -47,6 +47,12 @@ $
 
 $ lili examples/empty.txt
 $
+
+$ lili -h
+Usage: lili [options] [<files>]
+    -i, --ignore pattern             Ignore file names matching Ruby regex pattern
+    -h, --help                       Print usage info
+    -v, --version                    Print version info
 ```
 
 # REQUIREMENTS
