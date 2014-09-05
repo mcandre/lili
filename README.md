@@ -18,7 +18,7 @@ lili scans large projects for strange line endings, which may cause issues with 
 
 Either way, lili can help identify which files in your projects may be in the "wrong" format, helping resolve line ending-related errors across different computer systems.
 
-lili is a shell wrapper around the traditional Unix [file](http://darwinsys.com/file/) program, presenting a frontend similar to modern linters like [Reek](https://github.com/troessner/reek/wiki) and [JSHint](http://jshint.com/).
+lili is a wrapper around [line-detector](https://github.com/mcandre/line-detector), presenting a frontend similar to modern linters like [Reek](https://github.com/troessner/reek/wiki) and [JSHint](http://jshint.com/).
 
 * Recursive file search by default
 * Optional ignore patterns
