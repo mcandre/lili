@@ -31,6 +31,7 @@ DEFAULT_RULES = [
   [/[\.-]min\./, /^none$/],
   [/\.reg$/, /^crlf$/],
   [/\.bat$/, /^crlf$/],
+  [/\.ps1$/, /^crlf$/],
   [/.*/, /^lf$/]
 ]
 
