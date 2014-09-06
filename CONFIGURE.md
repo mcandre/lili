@@ -55,7 +55,7 @@ Filename patterns, line ending patterns, and final end of line patterns, are eac
 ```
 [
   [/[\.-]min\./, [/^none$/, /^false$/]],
-  [/\.(reg|bat|ps1|cs|fs|vbs|csproj|sln|aip)$/, [/^crlf|none$/, /^true|false$/]],
+  [/\.(reg|cmd|bat|ps1|cs|fs|vbs|csproj|sln|aip)$/, [/^crlf|none$/, /^true|false$/]],
   [/.*/, [/^lf|none$/, /^true$/]]
 ]
 ```

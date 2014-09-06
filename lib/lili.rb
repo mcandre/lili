@@ -17,12 +17,17 @@ DEFAULT_IGNORES = %w(
   Gemfile\.lock
   \.exe
   \.bin
+  \.dmg
   \.app
   \.xcodeproj/
   \.lproj/
   \.xcassets/
   \.dSYM/
   \.class
+  \.zip
+  \.jar
+  \.war
+  \.xpi
   \.jad
   \.cmo
   \.cmi
@@ -33,6 +38,7 @@ DEFAULT_IGNORES = %w(
   \.jpg
   \.jpeg
   \.tiff
+  \.ico
   \.wav
 )
 
@@ -42,7 +48,7 @@ DEFAULT_IGNORES = %w(
 #
 DEFAULT_RULES = [
   [/[\.-]min\./, [/^none$/, /^false$/]],
-  [/\.(reg|bat|ps1|cs|fs|vbs|xaml|csproj|sln|aip)$/, [/^crlf|none$/, /^true|false$/]],
+  [/\.(reg|cmd|bat|ps1|cs|fs|vbs|xaml|csproj|sln|aip)$/, [/^crlf|none$/, /^true|false$/]],
   [/.*/, [/^lf|none$/, /^true$/]]
 ]
 
