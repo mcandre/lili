@@ -39,6 +39,7 @@ DEFAULT_IGNORES = %w(
   \.jpeg
   \.tiff
   \.ico
+  \.svg
   \.wav
 )
 
