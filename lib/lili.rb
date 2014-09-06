@@ -47,6 +47,7 @@ DEFAULT_IGNORES = %w(
   \.ico
   \.svg
   \.wav
+  \.mp3
 )
 
 #
