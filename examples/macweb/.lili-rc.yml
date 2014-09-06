@@ -10,7 +10,7 @@ rules:
       - !ruby/regexp '/^none$/'
       - !ruby/regexp '/^false$/'
   -
-    - !ruby/regexp '/\.(reg|bat|ps1|cs|fs|xaml|csproj|sln)$/'
+    - !ruby/regexp '/\.(reg|bat|ps1|cs|fs|vbs|xaml|csproj|sln)$/'
     -
       - !ruby/regexp '/^crlf|none$/'
       - !ruby/regexp '/^true|false$/'

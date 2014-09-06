@@ -40,7 +40,7 @@ DEFAULT_IGNORES = %w(
 #
 DEFAULT_RULES = [
   [/[\.-]min\./, [/^none$/, /^false$/]],
-  [/\.(reg|bat|ps1|cs|fs|xaml|csproj|sln)$/, [/^crlf|none$/, /^true|false$/]],
+  [/\.(reg|bat|ps1|cs|fs|vbs|xaml|csproj|sln)$/, [/^crlf|none$/, /^true|false$/]],
   [/.*/, [/^lf|none$/, /^true$/]]
 ]
 
