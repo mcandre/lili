@@ -5,6 +5,7 @@ require 'line-detector'
 require 'version'
 
 DEFAULT_IGNORES = %w(
+  tmp/
   \.hg/
   \.svn/
   \.git/
