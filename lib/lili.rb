@@ -28,11 +28,11 @@ DEFAULT_IGNORES = %w(
 # Only the earliest file pattern match's rule applies.
 #
 DEFAULT_RULES = [
-  [/[\.-]min\./, /^none$/],
-  [/\.reg$/, /^crlf$/],
-  [/\.bat$/, /^crlf$/],
-  [/\.ps1$/, /^crlf$/],
-  [/.*/, /^lf$/]
+  [/[\.-]min\./, [/^none$/, /^false$/]],
+  [/\.reg$/, [/^crlf|none$/, /^false$/]],
+  [/\.bat$/, [/^crlf|none$/, /^false$/]],
+  [/\.ps1$/, [/^crlf|none$/, /^false$/]],
+  [/.*/, [/^lf|none$/, /^true$/]]
 ]
 
 # Warning for files that do not exist
@@ -43,22 +43,35 @@ NO_SUCH_FILE = 'does not exist'
 # Distinct from Ruby's built-in Encoding class.
 #
 class ALineEnding
-  attr_accessor :filename, :line_ending
+  attr_accessor :filename, :line_ending, :final_eol
 
-  def self.parse(filename, line_ending)
-    ALineEnding.new(filename, line_ending.to_s)
+  def self.parse(filename, report)
+    ALineEnding.new(filename, report.line_ending.to_s, report.final_eol.to_s)
   end
 
-  def initialize(filename, line_ending)
+  def initialize(filename, line_ending, final_eol)
     @filename = filename
     @line_ending = line_ending
+    @final_eol = final_eol
   end
 
   def violate?(rules)
     preferred = rules.select { |rule| filename =~ rule.first }.first[1]
 
-    if ! (line_ending =~ preferred)
-      [line_ending, preferred]
+    preferred_line_ending = preferred[0]
+    preferred_final_eol = preferred[1]
+
+    if ! (@line_ending =~ preferred_line_ending)
+      [@line_ending, preferred_line_ending]
+    elsif ! (@final_eol =~ preferred_final_eol)
+      [
+        if !final_eol
+          'with final eol'
+        else
+          'without final eol'
+        end,
+        preferred_final_eol
+      ]
     else
       false
     end
@@ -92,7 +105,7 @@ def self.check(filename, rules = DEFAULT_RULES)
   if !File.zero?(filename)
     line_ending = ALineEnding.parse(
       filename,
-      LineDetector.detect_line_ending_of_file(filename)
+      LineDetector.report_of_file(filename)
       )
 
     line_ending_difference = line_ending.violate?(rules)

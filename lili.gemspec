@@ -18,7 +18,7 @@ Gem::Specification.new { |s|
   s.homepage = 'https://github.com/mcandre/lili'
 
   s.add_dependency 'ptools', '~> 1.2'
-  s.add_dependency 'line-detector', '~> 0.2'
+  s.add_dependency 'line-detector', '~> 0.3'
 
   s.add_development_dependency 'rake', '~> 10.3'
   s.add_development_dependency 'reek', '~> 1.3'
