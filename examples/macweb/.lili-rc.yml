@@ -10,20 +10,10 @@ rules:
       - !ruby/regexp '/^none$/'
       - !ruby/regexp '/^false$/'
   -
-    - !ruby/regexp '/\.reg$/'
+    - !ruby/regexp '/\.(reg|bat|ps1|cs|fs|xaml|csproj|sln)$/'
     -
       - !ruby/regexp '/^crlf|none$/'
-      - !ruby/regexp '/^false$/'
-  -
-    - !ruby/regexp '/\.bat$/'
-    -
-      - !ruby/regexp '/^crlf|none$/'
-      - !ruby/regexp '/^false$/'
-  -
-    - !ruby/regexp '/\.ps1$/'
-    -
-      - !ruby/regexp '/^crlf|none$/'
-      - !ruby/regexp '/^false$/'
+      - !ruby/regexp '/^true|false$/'
   -
     - !ruby/regexp '/.*/'
     -

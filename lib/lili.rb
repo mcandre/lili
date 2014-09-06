@@ -12,11 +12,15 @@ DEFAULT_IGNORES = %w(
   \.gitignore
   node_modules/
   bower_components/
+  target/
   \.vagrant/
   Gemfile\.lock
   \.exe
   \.bin
+  \.cmo
+  \.cmi
   \.pdf
+  \.dot
   \.png
   \.jpg
   \.jpeg
@@ -30,9 +34,7 @@ DEFAULT_IGNORES = %w(
 #
 DEFAULT_RULES = [
   [/[\.-]min\./, [/^none$/, /^false$/]],
-  [/\.reg$/, [/^crlf|none$/, /^false$/]],
-  [/\.bat$/, [/^crlf|none$/, /^false$/]],
-  [/\.ps1$/, [/^crlf|none$/, /^false$/]],
+  [/\.(reg|bat|ps1|cs|fs|xaml|csproj|sln)$/, [/^crlf|none$/, /^true|false$/]],
   [/.*/, [/^lf|none$/, /^true$/]]
 ]
 
