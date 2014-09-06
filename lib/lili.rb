@@ -18,6 +18,8 @@ DEFAULT_IGNORES = %w(
   Gemfile\.lock
   \.exe
   \.bin
+  \.apk
+  \.ap_
   \.dmg
   \.pkg
   \.app
