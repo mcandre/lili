@@ -22,6 +22,7 @@ lili is a wrapper around [line-detector](https://github.com/mcandre/line-detecto
 
 * Recursive file search by default
 * Optional ignore patterns
+* Configuration via per-project and per-user [dotfiles](https://github.com/mcandre/lili/blob/master/CONFIGURE.md#dotfiles)
 * Install via a standard programming language package manager
 
 # EXAMPLES
@@ -33,7 +34,6 @@ examples/index-acorn.html: observed lfcr preferred: /^lf$/
 examples/index-form-feed.html: observed ff preferred: /^lf$/
 examples/index-ie.html: observed crlf preferred: /^lf$/
 examples/index-line-separator.html: observed ls preferred: /^lf$/
-examples/index-macweb.html: observed cr preferred: /^lf$/
 examples/index-monstrosity.html: observed mix preferred: /^lf$/
 examples/index-next-line.html: observed nel preferred: /^lf$/
 examples/index-paragraph-separator.html: observed ps preferred: /^lf$/
@@ -85,6 +85,10 @@ Install via [RubyGems](http://rubygems.org/):
 ```
 $ gem install lili
 ```
+
+# CONFIGURE
+
+See [CONFIGURE.md](https://github.com/mcandre/lili/blob/master/CONFIGURE.md) for details.
 
 # LICENSE
 

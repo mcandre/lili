@@ -10,7 +10,7 @@ end
 Then(/^the output is correct for each test$/) do
   lines = @cucumber.split("\n")
 
-  expect(lines.length).to eq(10)
+  expect(lines.length).to eq(9)
 
   expect(lines[0]).to match(
     %r(^examples/hello-wrong.bat\:.+$)

@@ -8,7 +8,6 @@ DEFAULT_IGNORES = %w(
   \.hg/
   \.svn/
   \.git/
-  \.git
   \.gitignore
   node_modules/
   \.vagrant/
@@ -34,6 +33,10 @@ DEFAULT_RULES = [
   [/\.ps1$/, [/^crlf|none$/, /^false$/]],
   [/.*/, [/^lf|none$/, /^true$/]]
 ]
+
+DEFAULT_CONFIGURATION = {
+  'rules' => DEFAULT_RULES
+}
 
 # Warning for files that do not exist
 NO_SUCH_FILE = 'does not exist'
@@ -101,7 +104,9 @@ def self.recursive_list(directory, ignores = DEFAULT_IGNORES)
   end
 end
 
-def self.check(filename, rules = DEFAULT_RULES)
+def self.check(filename, configuration = DEFAULT_CONFIGURATION)
+  rules = configuration['rules']
+
   if !File.zero?(filename)
     line_ending = ALineEnding.parse(
       filename,

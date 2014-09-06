@@ -1,0 +1,31 @@
+rules:
+  -
+    - !ruby/regexp '/\.html$/'
+    -
+      - !ruby/regexp '/^cr|none$/'
+      - !ruby/regexp '/^true$/'
+  -
+    - !ruby/regexp '/[\.-]min\./'
+    -
+      - !ruby/regexp '/^none$/'
+      - !ruby/regexp '/^false$/'
+  -
+    - !ruby/regexp '/\.reg$/'
+    -
+      - !ruby/regexp '/^crlf|none$/'
+      - !ruby/regexp '/^false$/'
+  -
+    - !ruby/regexp '/\.bat$/'
+    -
+      - !ruby/regexp '/^crlf|none$/'
+      - !ruby/regexp '/^false$/'
+  -
+    - !ruby/regexp '/\.ps1$/'
+    -
+      - !ruby/regexp '/^crlf|none$/'
+      - !ruby/regexp '/^false$/'
+  -
+    - !ruby/regexp '/.*/'
+    -
+      - !ruby/regexp '/^lf|none$/'
+      - !ruby/regexp '/^true$/'
