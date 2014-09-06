@@ -20,6 +20,7 @@ DEFAULT_IGNORES = %w(
   \.bin
   \.apk
   \.ap_
+  res/
   \.dmg
   \.pkg
   \.app
