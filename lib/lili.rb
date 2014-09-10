@@ -6,48 +6,48 @@ require 'version'
 
 DEFAULT_IGNORES = %w(
   tmp/
-  \.hg/
-  \.svn/
-  \.git/
-  \.gitignore
+  .hg/
+  .svn/
+  .git/
+  .gitignore
   node_modules/
   bower_components/
   target/
   dist/
-  \.vagrant/
-  Gemfile\.lock
-  \.exe
-  \.bin
-  \.apk
-  \.ap_
+  .vagrant/
+  Gemfile.lock
+  *.exe
+  *.bin
+  *.apk
+  *.ap_
   res/
-  \.dmg
-  \.pkg
-  \.app
-  \.xcodeproj/
-  \.lproj/
-  \.xcassets/
-  \.pmdoc/
-  \.dSYM/
-  \.class
-  \.zip
-  \.jar
-  \.war
-  \.xpi
-  \.jad
-  \.cmo
-  \.cmi
-  \.pdf
-  \.dot
-  \.png
-  \.gif
-  \.jpg
-  \.jpeg
-  \.tiff
-  \.ico
-  \.svg
-  \.wav
-  \.mp3
+  *.dmg
+  *.pkg
+  *.app
+  *.xcodeproj/
+  *.lproj/
+  *.xcassets/
+  *.pmdoc/
+  *.dSYM/
+  *.class
+  *.zip
+  *.jar
+  *.war
+  *.xpi
+  *.jad
+  *.cmo
+  *.cmi
+  *.pdf
+  *.dot
+  *.png
+  *.gif
+  *.jpg
+  *.jpeg
+  *.tiff
+  *.ico
+  *.svg
+  *.wav
+  *.mp3
 )
 
 #
@@ -55,9 +55,9 @@ DEFAULT_IGNORES = %w(
 # Only the earliest file pattern match's rule applies.
 #
 DEFAULT_RULES = [
-  [/[\.-]min\./, [/^none$/, /^false$/]],
-  [/\.(reg|cmd|bat|ps1|cs|fs|vbs|xaml|csproj|sln|aip)$/, [/^crlf|none$/, /^true|false$/]],
-  [/.*/, [/^lf|none$/, /^true$/]]
+  ['*[.-]min.*', [/^none$/, /^false$/]],
+  ['*.{reg,cmd,bat,ps1,cs,fs,vbs,xaml,csproj,sln,aip}', [/^crlf|none$/, /^true|false$/]],
+  ['*', [/^lf|none$/, /^true$/]]
 ]
 
 DEFAULT_CONFIGURATION = {
@@ -85,7 +85,9 @@ class ALineEnding
   end
 
   def violate?(rules)
-    preferred = rules.select { |rule| filename =~ rule.first }.first[1]
+    preferred = rules.select do |rule|
+      Dotsmack::fnmatch?(rule.first, @filename)
+    end.first[1]
 
     preferred_line_ending = preferred[0]
     preferred_final_eol = preferred[1]
@@ -122,22 +124,21 @@ class ALineEnding
   end
 end
 
-def self.recursive_list(directory, ignores = DEFAULT_IGNORES)
-  Find.find(directory).reject do |f|
-    File.directory?(f) ||
-    ignores.any? { |ignore| f =~ /#{ignore}/ } ||
-    File.binary?(f)
-  end
-end
+def self.check(filename, configuration = nil)
+  configuration =
+    if configuration.nil?
+      DEFAULT_CONFIGURATION
+    else
+      configuration
+    end
 
-def self.check(filename, configuration = DEFAULT_CONFIGURATION)
   rules = configuration['rules']
 
   if !File.zero?(filename)
     line_ending = ALineEnding.parse(
       filename,
       LineDetector.report_of_file(filename)
-      )
+    )
 
     line_ending_difference = line_ending.violate?(rules)
 

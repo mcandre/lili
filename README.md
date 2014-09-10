@@ -20,8 +20,8 @@ Either way, lili can help identify which files in your projects may be in the "w
 
 lili is a wrapper around [line-detector](https://github.com/mcandre/line-detector), presenting a frontend similar to modern linters like [Reek](https://github.com/troessner/reek/wiki) and [JSHint](http://jshint.com/).
 
-* Recursive file search by default
-* Optional ignore patterns
+* Recursive file scanning, like `jshint .`
+* Optional ignore patterns, like `.gitignore`
 * Configuration via per-project and per-user [dotfiles](https://github.com/mcandre/lili/blob/master/CONFIGURE.md#dotfiles)
 * Install via a standard programming language package manager
 
@@ -39,10 +39,10 @@ examples/index-next-line.html: observed nel preferred: /^lf$/
 examples/index-paragraph-separator.html: observed ps preferred: /^lf$/
 examples/index-vertical.html: observed vt preferred: /^lf$/
 
-$ lili -i \.html examples/
+$ lili -i '*.html' examples/
 examples/hello-wrong.bat: observed lf preferred: /^crlf$/
 
-$ lili -i \.html -i \.bat examples/
+$ lili -i '*.html' -i '*.bat' examples/
 $
 
 $ lili examples/empty.txt
@@ -50,7 +50,7 @@ $
 
 $ lili -h
 Usage: lili [options] [<files>]
-    -i, --ignore pattern             Ignore file names matching Ruby regex pattern
+    -i, --ignore pattern             Ignore file pattern (fnmatch)
     -h, --help                       Print usage info
     -v, --version                    Print version info
 ```

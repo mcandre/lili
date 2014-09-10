@@ -8,8 +8,11 @@ task :install => [:gem] do
   sh 'gem install ./*.gem'
 end
 
-task :test => [:clean, :install] do
-  sh 'cucumber'
+task :cucumber => [] do
+  sh 'bundle exec cucumber'
+end
+
+task :test => [:clean, :install, :cucumber] do
 end
 
 task :publish => [:clean, :gem] do

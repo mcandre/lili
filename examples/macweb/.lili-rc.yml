@@ -1,21 +1,5 @@
 rules:
-  -
-    - !ruby/regexp '/\.html$/'
-    -
-      - !ruby/regexp '/^cr|none$/'
-      - !ruby/regexp '/^true$/'
-  -
-    - !ruby/regexp '/[\.-]min\./'
-    -
-      - !ruby/regexp '/^none$/'
-      - !ruby/regexp '/^false$/'
-  -
-    - !ruby/regexp '/\.(reg|cmd|bat|ps1|cs|fs|vbs|xaml|csproj|sln|aip)$/'
-    -
-      - !ruby/regexp '/^crlf|none$/'
-      - !ruby/regexp '/^true|false$/'
-  -
-    - !ruby/regexp '/.*/'
-    -
-      - !ruby/regexp '/^lf|none$/'
-      - !ruby/regexp '/^true$/'
+  - ['*.html', [!ruby/regexp '/^cr|none$/', !ruby/regexp '/^true$/']]
+  - ['*[.-]min.*', [!ruby/regexp '/^none$/', !ruby/regexp '/^false$/']]
+  - ['*.{reg,cmd,bat,ps1,cs,fs,vbs,xaml,csproj,sln,aip}', [!ruby/regexp '/^crlf|none$/', !ruby/regexp '/^true|false$/']]
+  - ['*', [!ruby/regexp '/^lf|none$/', !ruby/regexp '/^true$/']]

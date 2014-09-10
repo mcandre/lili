@@ -15,7 +15,7 @@ Run `lili -h` or `lili --help` for a full list, or refer to the source code for 
 ```
 $ lili -h
 Usage: lili [options] [<files>]
-    -i, --ignore pattern             Ignore file names matching Ruby regex pattern
+    -i, --ignore pattern             Ignore file pattern (fnmatch)
     -h, --help                       Print usage info
     -v, --version                    Print version info
 ```
@@ -46,7 +46,9 @@ A rule is a two element list, of a filename pattern and a format preference.
 
 A format preference is a two element list of a line ending pattern and a final end of line pattern.
 
-Filename patterns, line ending patterns, and final end of line patterns, are each Ruby regexps.
+Filename patterns are fnmatch patterns.
+
+Line ending patterns and final end of line patterns are both Ruby regexes.
 
 # Built-in defaults
 
@@ -54,8 +56,8 @@ Filename patterns, line ending patterns, and final end of line patterns, are eac
 
 ```
 [
-  [/[\.-]min\./, [/^none$/, /^false$/]],
-  [/\.(reg|cmd|bat|ps1|cs|fs|vbs|csproj|sln|aip)$/, [/^crlf|none$/, /^true|false$/]],
-  [/.*/, [/^lf|none$/, /^true$/]]
+  ['*[.-]min.*', [/^none$/, /^false$/]],
+  ['*.{reg,cmd,bat,ps1,cs,fs,vbs,xaml,csproj,sln,aip}', [/^crlf|none$/, /^true|false$/]],
+  ['*', [/^lf|none$/, /^true$/]]
 ]
 ```
