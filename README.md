@@ -57,7 +57,7 @@ Usage: lili [options] [<files>]
 
 # REQUIREMENTS
 
-* [Ruby](https://www.ruby-lang.org/) 2+
+* [Ruby](https://www.ruby-lang.org/) 2.0+
 
 ## Optional
 
