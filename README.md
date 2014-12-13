@@ -1,29 +1,6 @@
 # lili - line ending linter
 
-# HOMEPAGE
-
-https://github.com/mcandre/lili
-
-# RUBYGEMS
-
-https://rubygems.org/gems/lili
-
-# ABOUT
-
-lili scans large projects for strange line endings, which may cause issues with some software.
-
-* Most software prefers LF.
-* Some Windows-centric software prefers CRLF.
-* Some old Mac OS 9 software prefers CR.
-
-Either way, lili can help identify which files in your projects may be in the "wrong" format, helping resolve line ending-related errors across different computer systems.
-
-lili is a wrapper around [line-detector](https://github.com/mcandre/line-detector), presenting a frontend similar to modern linters like [Reek](https://github.com/troessner/reek/wiki) and [JSHint](http://jshint.com/).
-
-* Recursive file scanning, like `jshint .`
-* Optional ignore patterns, like `.gitignore`
-* Configuration via per-project and per-user [dotfiles](https://github.com/mcandre/lili/blob/master/CONFIGURE.md#dotfiles)
-* Install via a standard programming language package manager
+`lili` searches your source code files for strange line endings that may cause issues with software interoperability.
 
 # EXAMPLES
 
@@ -54,6 +31,31 @@ Usage: lili [options] [<files>]
     -h, --help                       Print usage info
     -v, --version                    Print version info
 ```
+
+# HOMEPAGE
+
+https://github.com/mcandre/lili
+
+# RUBYGEMS
+
+https://rubygems.org/gems/lili
+
+# ABOUT
+
+lili scans large projects for strange line endings, which may cause issues with some software.
+
+* Most software prefers LF.
+* Some Windows-centric software prefers CRLF.
+* Some old Mac OS 9 software prefers CR.
+
+Either way, lili can help identify which files in your projects may be in the "wrong" format, helping resolve line ending-related errors across different computer systems.
+
+lili is a wrapper around [line-detector](https://github.com/mcandre/line-detector), presenting a frontend similar to modern linters like [Reek](https://github.com/troessner/reek/wiki) and [JSHint](http://jshint.com/).
+
+* Recursive file scanning, like `jshint .`
+* Optional ignore patterns, like `.gitignore`
+* Configuration via per-project and per-user [dotfiles](https://github.com/mcandre/lili/blob/master/CONFIGURE.md#dotfiles)
+* Install via a standard programming language package manager
 
 # REQUIREMENTS
 
