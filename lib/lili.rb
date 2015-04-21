@@ -1,7 +1,7 @@
 require 'ptools'
 require 'line-detector'
 
-require 'version'
+require_relative 'version'
 
 DEFAULT_IGNORES = %w(
   tmp
