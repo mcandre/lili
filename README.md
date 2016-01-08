@@ -59,7 +59,7 @@ lili is a wrapper around [line-detector](https://github.com/mcandre/line-detecto
 
 # REQUIREMENTS
 
-* [Ruby](https://www.ruby-lang.org/) 2.0+
+* [Ruby](https://www.ruby-lang.org/) 2.3+
 
 ## Optional
 
