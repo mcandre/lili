@@ -107,6 +107,32 @@ class ALineEnding
     end
   end
 
+  def to_finding(line_ending_difference = false)
+    if line_ending_difference
+      observed = line_ending_difference[0]
+      preferred = line_ending_difference[1].inspect
+
+      if observed == NO_SUCH_FILE
+        "#{@filename}: #{NO_SUCH_FILE}"
+      else
+        {
+          :failure => true,
+          :rule => "Line ending",
+          :description => "A line ending other than the preferred ending was found",
+          :categories => [
+            "Style"
+          ],
+          :location => {
+            :path => "code\/hello.txt",
+          },
+          :recommendation => "Use the preferred line ending /^crlf$/"
+        }
+      end
+    else
+      "#{@filename}: #{@line_ending}"
+    end
+  end
+
   def to_s(line_ending_difference = false)
     if line_ending_difference
       observed = line_ending_difference[0]
@@ -141,6 +167,6 @@ def self.check(filename, configuration = nil)
 
     line_ending_difference = line_ending.violate?(rules)
 
-    puts line_ending.to_s(line_ending_difference) if line_ending_difference
+    yield line_ending.to_finding(line_ending_difference) if line_ending_difference
   end
 end

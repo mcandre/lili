@@ -6,6 +6,7 @@ require 'optparse'
 require 'dotsmack'
 require 'yaml'
 require 'lili'
+require 'json'
 
 def main
   ignores = DEFAULT_IGNORES
@@ -45,7 +46,24 @@ def main
     dotconfig = '.lili-rc.yml'
   )
 
-  dotsmack.enumerate(filenames).each do |filename, config|
+  puts <<-eos
+{
+  "statVersion": "0.4.0",
+  "process": {
+    "name": "Line Ending Linter",
+    "version": "0.3.0",
+    "description": "lili searches your source code files for strange line endings that may cause issues with software interoperability",
+    "maintainer": "Andrew Pennebaker",
+    "email": "andrew.pennebaker@gmail.com",
+    "website": "https://github.com/mcandre/lili",
+    "repeatability": "Associative"
+  },
+  "findings": [
+  eos
+
+  finding_count = 0
+
+  dotsmack.enumerate(filenames).each do |filename, config, i|
     config =
       if config.nil?
         DEFAULT_CONFIGURATION.merge(configuration_flags)
@@ -53,8 +71,20 @@ def main
         DEFAULT_CONFIGURATION.merge(YAML.load(config)).merge(configuration_flags)
       end
 
-    check(filename, config)
+    check(filename, config) { |finding|
+      puts "," if finding_count > 0
+      print JSON.pretty_generate(finding).lines.map { |line| '    ' + line }.join
+      finding_count += 1
+    }
   end
+
+  puts <<-eos
+
+  ]
+}
+  eos
+
+
 end
 
 begin
