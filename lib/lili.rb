@@ -20,6 +20,7 @@ DEFAULT_IGNORES = %w(
   *.apk
   *.ap_
   res
+  *.gem
   *.dmg
   *.pkg
   *.app
