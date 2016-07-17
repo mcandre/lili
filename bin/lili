@@ -13,7 +13,7 @@ STAT_HEADER = <<-eos
   "statVersion": "0.4.0",
   "process": {
     "name": "Line Ending Linter",
-    "version": "0.3.0",
+    "version": "#{LiLi::VERSION}",
     "description": "lili searches your source code files for strange line endings that may cause issues with software interoperability",
     "maintainer": "Andrew Pennebaker",
     "email": "andrew.pennebaker@gmail.com",
