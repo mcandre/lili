@@ -108,6 +108,32 @@ class ALineEnding
     end
   end
 
+  def to_finding(line_ending_difference = false)
+    if line_ending_difference
+      observed = line_ending_difference[0]
+      preferred = line_ending_difference[1].inspect
+
+      if observed == NO_SUCH_FILE
+        "#{@filename}: #{NO_SUCH_FILE}"
+      else
+        {
+            :failure => true,
+            :rule => "Line ending",
+            :description => "Observed #{observed}",
+            :categories => [
+                "Style"
+            ],
+            :location => {
+                :path => "#{@filename}",
+            },
+            :recommendation => "Use the #{preferred}"
+        }
+      end
+    else
+      "#{@filename}: #{@line_ending}"
+    end
+  end
+
   def to_s(line_ending_difference = false)
     if line_ending_difference
       observed = line_ending_difference[0]
@@ -124,7 +150,7 @@ class ALineEnding
   end
 end
 
-def self.check(filename, configuration = nil)
+def self.check(filename, configuration = nil, is_stat = false)
   configuration =
     if configuration.nil?
       DEFAULT_CONFIGURATION
@@ -142,6 +168,10 @@ def self.check(filename, configuration = nil)
 
     line_ending_difference = line_ending.violate?(rules)
 
-    puts line_ending.to_s(line_ending_difference) if line_ending_difference
+    if is_stat
+      yield line_ending.to_finding(line_ending_difference) if line_ending_difference
+    else
+      puts line_ending.to_s(line_ending_difference) if line_ending_difference
+    end
   end
 end
