@@ -29,6 +29,7 @@ $ lili -h
 Usage: lili [options] [<files>]
     -i, --ignore pattern             Ignore file pattern (fnmatch)
     -h, --help                       Print usage info
+    -s, --stat                       Output in STAT
     -v, --version                    Print version info
 ```
 
