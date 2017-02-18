@@ -109,29 +109,20 @@ class ALineEnding
   end
 
   def to_finding(line_ending_difference = false)
+    finding = nil
     if line_ending_difference
       observed = line_ending_difference[0]
       preferred = line_ending_difference[1].inspect
-
       if observed == NO_SUCH_FILE
-        "#{@filename}: #{NO_SUCH_FILE}"
+        finding = StatModule::Finding.new(false, 'File doesn\'t exist', "#{@filename} doesn't exist")
       else
-        {
-            :failure => true,
-            :rule => "Line ending",
-            :description => "Observed #{observed}",
-            :categories => [
-                "Style"
-            ],
-            :location => {
-                :path => "#{@filename}",
-            },
-            :recommendation => "Use the #{preferred}"
-        }
+        finding = StatModule::Finding.new(true, 'Line ending', "Observed #{observed}")
+        finding.categories = ['Style']
+        finding.location = StatModule::Location.new("#{@filename}")
+        finding.recommendation = "Use the #{preferred}"
       end
-    else
-      "#{@filename}: #{@line_ending}"
     end
+    finding
   end
 
   def to_s(line_ending_difference = false)

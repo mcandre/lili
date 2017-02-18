@@ -7,27 +7,7 @@ require 'dotsmack'
 require 'yaml'
 require 'lili'
 require 'json'
-
-STAT_HEADER = <<-eos
-{
-  "statVersion": "0.4.0",
-  "process": {
-    "name": "Line Ending Linter",
-    "version": "#{LiLi::VERSION}",
-    "description": "lili searches your source code files for strange line endings that may cause issues with software interoperability",
-    "maintainer": "Andrew Pennebaker",
-    "email": "andrew.pennebaker@gmail.com",
-    "website": "https://github.com/mcandre/lili",
-    "repeatability": "Associative"
-  },
-  "findings": [
-eos
-
-STAT_FOOTER = <<-eos
-
-  ]
-}
-eos
+require 'stat'
 
 def main
   ignores = DEFAULT_IGNORES
@@ -73,7 +53,7 @@ def main
     dotconfig = '.lili-rc.yml'
   )
 
-  finding_count = 0
+  findings = []
 
   dotsmack.enumerate(filenames).each do |filename, config|
     config =
@@ -87,16 +67,21 @@ def main
       check(filename, config, is_stat)
     else
       check(filename, config, is_stat) { |finding|
-        puts STAT_HEADER if finding_count == 0
-        puts ',' if finding_count > 0
-        print JSON.pretty_generate(finding).lines.map { |line| '    ' + line }.join
-        finding_count += 1
+        findings.push(finding) unless finding.nil?
       }
     end
   end
-
-  if is_stat && finding_count > 0
-    puts STAT_FOOTER
+  if is_stat
+    process = StatModule::Process.new('Line Ending Linter')
+    process.version = "#{LiLi::VERSION}"
+    process.description = 'lili searches your source code files for strange line endings that may cause issues with software interoperability'
+    process.maintainer = 'Andrew Pennebaker'
+    process.email = 'andrew.pennebaker@gmail.com'
+    process.website = 'https://github.com/mcandre/lili'
+    process.repeatability = 'Associative'
+    stat = StatModule::Stat.new(process)
+    stat.findings = findings
+    puts stat.to_json
   end
 end
 
