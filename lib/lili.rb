@@ -4,50 +4,50 @@ require 'line-detector'
 require_relative 'version'
 
 DEFAULT_IGNORES = %w(
-  tmp
-  .hg
-  .svn
-  .git
-  .gitignore
-  node_modules
-  bower_components
-  target
-  dist
-  .vagrant
-  Gemfile.lock
-  *.exe
-  *.bin
-  *.apk
-  *.ap_
-  res
-  *.gem
-  *.dmg
-  *.pkg
-  *.app
-  *.xcodeproj
-  *.lproj
-  *.xcassets
-  *.pmdoc
-  *.dSYM
-  *.class
-  *.zip
-  *.jar
-  *.war
-  *.xpi
-  *.jad
-  *.cmo
-  *.cmi
-  *.pdf
-  *.dot
-  *.png
-  *.gif
-  *.jpg
-  *.jpeg
-  *.tiff
-  *.ico
-  *.svg
-  *.wav
-  *.mp3
+    tmp
+    .hg
+    .svn
+    .git
+    .gitignore
+    node_modules
+    bower_components
+    target
+    dist
+    .vagrant
+    Gemfile.lock
+    *.exe
+    *.bin
+    *.apk
+    *.ap_
+    res
+    *.gem
+    *.dmg
+    *.pkg
+    *.app
+    *.xcodeproj
+    *.lproj
+    *.xcassets
+    *.pmdoc
+    *.dSYM
+    *.class
+    *.zip
+    *.jar
+    *.war
+    *.xpi
+    *.jad
+    *.cmo
+    *.cmi
+    *.pdf
+    *.dot
+    *.png
+    *.gif
+    *.jpg
+    *.jpeg
+    *.tiff
+    *.ico
+    *.svg
+    *.wav
+    *.mp3
 )
 
 #
@@ -55,13 +55,13 @@ DEFAULT_IGNORES = %w(
 # Only the earliest file pattern match's rule applies.
 #
 DEFAULT_RULES = [
-  ['*[.-]min.*', [/^none$/, /^false$/]],
-  ['*.{reg,cmd,bat,ps1,cs,fs,vbs,xaml,csproj,sln,aip}', [/^crlf|none$/, /^true|false$/]],
-  ['*', [/^lf|none$/, /^true$/]]
+    ['*[.-]min.*', [/^none$/, /^false$/]],
+    ['*.{reg,cmd,bat,ps1,cs,fs,vbs,xaml,csproj,sln,aip}', [/^crlf|none$/, /^true|false$/]],
+    ['*', [/^lf|none$/, /^true$/]]
 ]
 
 DEFAULT_CONFIGURATION = {
-  'rules' => DEFAULT_RULES
+    'rules' => DEFAULT_RULES
 }
 
 # Warning for files that do not exist
@@ -72,97 +72,97 @@ NO_SUCH_FILE = 'does not exist'
 # Distinct from Ruby's built-in Encoding class.
 #
 class ALineEnding
-  attr_accessor :filename, :line_ending, :final_eol
+    attr_accessor :filename, :line_ending, :final_eol
 
-  def self.parse(filename, report)
-    ALineEnding.new(filename, report.line_ending.to_s, report.final_eol.to_s)
-  end
+    def self.parse(filename, report)
+        ALineEnding.new(filename, report.line_ending.to_s, report.final_eol.to_s)
+    end
 
-  def initialize(filename, line_ending, final_eol)
-    @filename = filename
-    @line_ending = line_ending
-    @final_eol = final_eol
-  end
+    def initialize(filename, line_ending, final_eol)
+        @filename = filename
+        @line_ending = line_ending
+        @final_eol = final_eol
+    end
 
-  def violate?(rules)
-    preferred = rules.select do |rule|
-      Dotsmack::fnmatch?(rule.first, @filename)
-    end.first[1]
+    def violate?(rules)
+        preferred = rules.select do |rule|
+            Dotsmack::fnmatch?(rule.first, @filename)
+        end.first[1]
 
-    preferred_line_ending = preferred[0]
-    preferred_final_eol = preferred[1]
+        preferred_line_ending = preferred[0]
+        preferred_final_eol = preferred[1]
 
-    if ! (@line_ending =~ preferred_line_ending)
-      [@line_ending, preferred_line_ending]
-    elsif ! (@final_eol =~ preferred_final_eol)
-      [
-        if !final_eol
-          'with final eol'
+        if ! (@line_ending =~ preferred_line_ending)
+            [@line_ending, preferred_line_ending]
+        elsif ! (@final_eol =~ preferred_final_eol)
+            [
+                if !final_eol
+                    'with final eol'
+                else
+                    'without final eol'
+                end,
+                preferred_final_eol
+            ]
         else
-          'without final eol'
-        end,
-        preferred_final_eol
-      ]
-    else
-      false
+            false
+        end
     end
-  end
 
-  def to_finding(line_ending_difference = false)
-    finding = nil
-    if line_ending_difference
-      observed = line_ending_difference[0]
-      preferred = line_ending_difference[1].inspect
-      if observed == NO_SUCH_FILE
-        finding = StatModule::Finding.new(false, 'File doesn\'t exist', "#{@filename} doesn't exist")
-      else
-        finding = StatModule::Finding.new(true, 'Line ending', "Observed #{observed}")
-        finding.categories = ['Style']
-        finding.location = StatModule::Location.new("#{@filename}")
-        finding.recommendation = "Use the #{preferred}"
-      end
+    def to_finding(line_ending_difference = false)
+        finding = nil
+        if line_ending_difference
+            observed = line_ending_difference[0]
+            preferred = line_ending_difference[1].inspect
+            if observed == NO_SUCH_FILE
+                finding = StatModule::Finding.new(false, 'File doesn\'t exist', "#{@filename} doesn't exist")
+            else
+                finding = StatModule::Finding.new(true, 'Line ending', "Observed #{observed}")
+                finding.categories = ['Style']
+                finding.location = StatModule::Location.new("#{@filename}")
+                finding.recommendation = "Use the #{preferred}"
+            end
+        end
+        finding
     end
-    finding
-  end
 
-  def to_s(line_ending_difference = false)
-    if line_ending_difference
-      observed = line_ending_difference[0]
-      preferred = line_ending_difference[1].inspect
+    def to_s(line_ending_difference = false)
+        if line_ending_difference
+            observed = line_ending_difference[0]
+            preferred = line_ending_difference[1].inspect
 
-      if observed == NO_SUCH_FILE
-        "#{@filename}: #{NO_SUCH_FILE}"
-      else
-        "#{@filename}: observed #{observed} preferred: #{preferred}"
-      end
-    else
-      "#{@filename}: #{@line_ending}"
+            if observed == NO_SUCH_FILE
+                "#{@filename}: #{NO_SUCH_FILE}"
+            else
+                "#{@filename}: observed #{observed} preferred: #{preferred}"
+            end
+        else
+            "#{@filename}: #{@line_ending}"
+        end
     end
-  end
 end
 
 def self.check(filename, configuration = nil, is_stat = false)
-  configuration =
+    configuration =
     if configuration.nil?
-      DEFAULT_CONFIGURATION
+        DEFAULT_CONFIGURATION
     else
-      configuration
+        configuration
     end
 
-  rules = configuration['rules']
+    rules = configuration['rules']
 
-  if !File.zero?(filename)
-    line_ending = ALineEnding.parse(
-      filename,
-      LineDetector.report_of_file(filename)
-    )
+    if !File.zero?(filename)
+        line_ending = ALineEnding.parse(
+            filename,
+            LineDetector.report_of_file(filename)
+        )
 
-    line_ending_difference = line_ending.violate?(rules)
+        line_ending_difference = line_ending.violate?(rules)
 
-    if is_stat
-      yield line_ending.to_finding(line_ending_difference) if line_ending_difference
-    else
-      puts line_ending.to_s(line_ending_difference) if line_ending_difference
+        if is_stat
+            yield line_ending.to_finding(line_ending_difference) if line_ending_difference
+        else
+            puts line_ending.to_s(line_ending_difference) if line_ending_difference
+        end
     end
-  end
 end

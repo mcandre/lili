@@ -4,7 +4,7 @@
 
 # EXAMPLES
 
-```
+```console
 $ lili examples/
 examples/hello-wrong.bat: observed lf preferred: /^crlf$/
 examples/index-acorn.html: observed lfcr preferred: /^lf$/
@@ -81,11 +81,16 @@ There are numerous programs that can help convert files to different line ending
 * [emacs](http://www.gnu.org/software/emacs/)
 * [vim](http://www.vim.org/)
 
+* [GNU findutils](https://www.gnu.org/software/findutils/)
+* [stank](https://github.com/mcandre/stank) (e.g. `go get github.com/mcandre/stank/...`)
+* [Python](https://www.python.org) 3+ (for yamllint)
+* [Node.js](https://nodejs.org/en/) (for eclint)
+
 # INSTALL
 
 Install via [RubyGems](http://rubygems.org/):
 
-```
+```console
 $ gem install lili
 ```
 
@@ -103,7 +108,7 @@ FreeBSD
 
 Keep the interface working:
 
-```
+```console
 $ cucumber
 ```
 
@@ -111,7 +116,7 @@ $ cucumber
 
 Keep the code tidy:
 
-```
+```console
 $ rake lint
 ```
 

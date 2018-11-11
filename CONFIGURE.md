@@ -12,7 +12,7 @@ Any command-line flags that are present override the same settings in dotfiles a
 
 Run `lili -h` or `lili --help` for a full list, or refer to the source code for `bin/lili`.
 
-```
+```console
 $ lili -h
 Usage: lili [options] [<files>]
     -i, --ignore pattern             Ignore file pattern (fnmatch)
