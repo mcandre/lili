@@ -7,7 +7,6 @@ require 'dotsmack'
 require 'yaml'
 require 'lili'
 require 'json'
-require 'stat'
 
 def main
     ignores = DEFAULT_IGNORES
@@ -70,18 +69,6 @@ def main
                 findings.push(finding) unless finding.nil?
             }
         end
-    end
-    if is_stat
-        process = StatModule::Process.new('Line Ending Linter')
-        process.version = "#{LiLi::VERSION}"
-        process.description = 'lili searches your source code files for strange line endings that may cause issues with software interoperability'
-        process.maintainer = 'Andrew Pennebaker'
-        process.email = 'andrew.pennebaker@gmail.com'
-        process.website = 'https://github.com/mcandre/lili'
-        process.repeatability = 'Associative'
-        stat = StatModule::Stat.new(process)
-        stat.findings = findings
-        puts stat.to_json
     end
 end
 

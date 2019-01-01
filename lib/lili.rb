@@ -108,23 +108,6 @@ class ALineEnding
         end
     end
 
-    def to_finding(line_ending_difference = false)
-        finding = nil
-        if line_ending_difference
-            observed = line_ending_difference[0]
-            preferred = line_ending_difference[1].inspect
-            if observed == NO_SUCH_FILE
-                finding = StatModule::Finding.new(false, 'File doesn\'t exist', "#{@filename} doesn't exist")
-            else
-                finding = StatModule::Finding.new(true, 'Line ending', "Observed #{observed}")
-                finding.categories = ['Style']
-                finding.location = StatModule::Location.new("#{@filename}")
-                finding.recommendation = "Use the #{preferred}"
-            end
-        end
-        finding
-    end
-
     def to_s(line_ending_difference = false)
         if line_ending_difference
             observed = line_ending_difference[0]
@@ -159,10 +142,6 @@ def self.check(filename, configuration = nil, is_stat = false)
 
         line_ending_difference = line_ending.violate?(rules)
 
-        if is_stat
-            yield line_ending.to_finding(line_ending_difference) if line_ending_difference
-        else
-            puts line_ending.to_s(line_ending_difference) if line_ending_difference
-        end
+        puts line_ending.to_s(line_ending_difference) if line_ending_difference
     end
 end
