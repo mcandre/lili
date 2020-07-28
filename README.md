@@ -1,3 +1,5 @@
+![Ruby](https://github.com/jimbo8098/lili/workflows/Ruby/badge.svg?branch=master)
+
 # lili - line ending linter
 
 `lili` searches your source code files for strange line endings that may cause issues with software interoperability.
